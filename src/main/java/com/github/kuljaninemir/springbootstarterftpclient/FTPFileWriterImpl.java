@@ -32,7 +32,6 @@ public class FTPFileWriterImpl implements FTPFileWriter {
         }
     }
 
-    @Override
     public boolean open() {
         close();
         logger.info("Connecting and logging in to FTP server.");
@@ -49,7 +48,6 @@ public class FTPFileWriterImpl implements FTPFileWriter {
         return loggedIn;
     }
 
-    @Override
     public void close() {
         if (ftpClient != null) {
             try {
@@ -61,7 +59,6 @@ public class FTPFileWriterImpl implements FTPFileWriter {
         }
     }
 
-    @Override
     public boolean retrieveFile(String remotePath, OutputStream outputStream) {
         try {
             logger.info("Trying to retrieve a file from remote path " + remotePath);
@@ -72,7 +69,6 @@ public class FTPFileWriterImpl implements FTPFileWriter {
         }
     }
 
-    @Override
     public boolean storeFile(InputStream inputStream, String destPath) {
         try {
             logger.info("Trying to store a file to destination path " + destPath);
@@ -83,7 +79,6 @@ public class FTPFileWriterImpl implements FTPFileWriter {
         }
     }
 
-    @Override
     public boolean storeFile(String sourcePath, String destPath) {
         InputStream inputStream = null;
         try {
@@ -95,7 +90,6 @@ public class FTPFileWriterImpl implements FTPFileWriter {
         return this.storeFile(inputStream, destPath);
     }
 
-    @Override
     public boolean isConnected() {
         boolean connected = false;
         if (ftpClient != null) {
