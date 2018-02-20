@@ -1,0 +1,6 @@
+ftp:
+  username: username
+  password: password
+  server: server
+  port: 21
+  keepAliveTimout: 10
