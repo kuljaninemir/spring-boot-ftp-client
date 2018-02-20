@@ -62,13 +62,13 @@ ftp:
 
 ## Versioning
 
-I use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
+I use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/kuljaninemir/spring-boot-starter-ftp-client/tags). 
 
 ## Authors
 
 * **Emir Kuljanin** - *Initial work* - [kuljaninemir](https://github.com/kuljaninemir)
 
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+See also the list of [contributors](https://github.com/kuljaninemir/spring-boot-starter-ftp-client/contributors) who participated in this project.
 
 ## License
 
