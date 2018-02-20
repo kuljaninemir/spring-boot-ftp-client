@@ -3,3 +3,5 @@ jdk:
   - oraclejdk8
 before_install:
   - chmod +x mvnw
+install:
+  - ./mvnw install -B -V
