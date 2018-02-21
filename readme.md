@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/kuljaninemir/spring-boot-ftp-client.svg?branch=master)](https://travis-ci.org/kuljaninemir/spring-boot-ftp-client)
+[![Build Status](https://travis-ci.org/kuljaninemir/spring-boot-ftp-client.svg?branch=master)](https://travis-ci.org/kuljaninemir/spring-boot-ftp-client) [![Coverage Status](https://codecov.io/gh/kuljaninemir/spring-boot-ftp-client/branch/master/graph/badge.svg)](https://codecov.io/gh/kuljaninemir/spring-boot-ftp-client) [![HitCount](http://hits.dwyl.com/kuljaninemir/spring-boot-ftp-client.svg)](http://hits.dwyl.com/kuljaninemir/spring-boot-ftp-client) [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/dwyl/esta/issues)
 
 # Spring boot ftp client
 
