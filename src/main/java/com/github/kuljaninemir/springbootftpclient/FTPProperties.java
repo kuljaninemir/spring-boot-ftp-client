@@ -1,4 +1,4 @@
-package com.github.kuljaninemir.springbootstarterftpclient;
+package com.github.kuljaninemir.springbootftpclient;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;

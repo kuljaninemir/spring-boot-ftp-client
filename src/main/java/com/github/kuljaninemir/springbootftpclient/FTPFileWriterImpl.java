@@ -1,4 +1,4 @@
-package com.github.kuljaninemir.springbootstarterftpclient;
+package com.github.kuljaninemir.springbootftpclient;
 
 import org.apache.commons.net.ftp.FTPClient;
 import org.slf4j.Logger;

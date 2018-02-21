@@ -1,4 +1,4 @@
-package com.github.kuljaninemir.springbootstarterftpclient;
+package com.github.kuljaninemir.springbootftpclient;
 
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -14,7 +14,7 @@ import org.mockftpserver.fake.filesystem.WindowsFakeFileSystem;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-public class SpringBootStarterFtpClientApplicationTests {
+public class FTPFileWriterTests {
 
 	private static FakeFtpServer fakeFtpServer;
 	private FTPFileWriter ftpFileWriter;

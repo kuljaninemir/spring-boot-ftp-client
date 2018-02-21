@@ -1,4 +1,4 @@
-package com.github.kuljaninemir.springbootstarterftpclient;
+package com.github.kuljaninemir.springbootftpclient;
 
 import java.io.InputStream;
 import java.io.OutputStream;
