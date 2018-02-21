@@ -1,6 +1,6 @@
-# Spring boot starter ftp client
+# Spring boot ftp client
 
-Spring boot starter project for using Apache Commons FTPClient through a simplified interface.
+Spring boot project for using Apache Commons FTPClient through a simplified interface.
 
 ## Usage
 
@@ -62,13 +62,13 @@ ftp:
 
 ## Versioning
 
-I use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/kuljaninemir/spring-boot-starter-ftp-client/tags). 
+I use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/kuljaninemir/spring-boot-ftp-client/tags). 
 
 ## Authors
 
 * **Emir Kuljanin** - *Initial work* - [kuljaninemir](https://github.com/kuljaninemir)
 
-See also the list of [contributors](https://github.com/kuljaninemir/spring-boot-starter-ftp-client/contributors) who participated in this project.
+See also the list of [contributors](https://github.com/kuljaninemir/spring-boot-ftp-client/contributors) who participated in this project.
 
 ## License
 
