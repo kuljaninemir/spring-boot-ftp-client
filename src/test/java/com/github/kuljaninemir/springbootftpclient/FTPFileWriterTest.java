@@ -14,7 +14,7 @@ import org.mockftpserver.fake.filesystem.WindowsFakeFileSystem;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-public class FTPFileWriterTests {
+public class FTPFileWriterTest {
 
 	private static FakeFtpServer fakeFtpServer;
 	private FTPFileWriter ftpFileWriter;
