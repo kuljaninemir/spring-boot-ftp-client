@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/kuljaninemir/spring-boot-ftp-client.svg?branch=master)](https://travis-ci.org/kuljaninemir/spring-boot-ftp-client)
+
 # Spring boot ftp client
 
 Spring boot project for using Apache Commons FTPClient through a simplified interface.
