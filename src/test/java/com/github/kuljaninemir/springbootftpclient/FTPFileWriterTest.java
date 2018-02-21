@@ -57,11 +57,6 @@ public class FTPFileWriterTest {
 		assertFalse(ftpFileWriter.open());
 	}
 
-	@Test
-	public void thisTestWillFail() {
-		assertTrue(false);
-	}
-
 	public FTPProperties getStandardFTPProperties() {
 		FTPProperties ftpProperties = new FTPProperties();
 		ftpProperties.setAutoStart(false);
