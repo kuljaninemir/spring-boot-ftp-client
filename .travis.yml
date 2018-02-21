@@ -4,4 +4,5 @@ jdk:
 before_install:
   - chmod +x mvnw
 install:
+  - ./mvnw test -B -V
   - ./mvnw install -B -V
