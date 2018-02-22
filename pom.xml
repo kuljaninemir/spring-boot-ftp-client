@@ -1,58 +1,90 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.github.kuljaninemir</groupId>
-	<artifactId>spring-boot-starter-ftp-client</artifactId>
-	<version>0.0.2</version>
-	<packaging>jar</packaging>
+    <groupId>com.github.kuljaninemir</groupId>
+    <artifactId>spring-boot-ftp-client</artifactId>
+    <version>1.0.01</version>
 
-	<name>spring-boot-starter-ftp-client</name>
-	<description>Demo project for Spring Boot</description>
+    <name>spring-boot-ftp-client</name>
+    <description>Demo project for Spring Boot</description>
 
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<java.version>1.8</java.version>
-		<hibernate-validator.version>6.0.7.Final</hibernate-validator.version>
-		<commons-net.version>3.6</commons-net.version>
-		<mockftpserver.version>2.7</mockftpserver.version>
+    <url>https://github.com/kuljaninemir/spring-boot-ftp-client</url>
+
+    <distributionManagement>
+        <repository>
+            <id>bintray-kuljaninemir-maven</id>
+            <name>kuljaninemir-maven</name>
+            <url>https://api.bintray.com/maven/kuljaninemir/maven/spring-boot-ftp-client/;publish=1</url>
+        </repository>
+    </distributionManagement>
+
+    <issueManagement>
+        <url>https://github.com/kuljaninemir/spring-boot-ftp-client/issues</url>
+        <system>GitHub Issues</system>
+    </issueManagement>
+
+    <licenses>
+        <license>
+            <name>MIT License</name>
+            <url>http://www.opensource.org/licenses/mit-license.php</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <scm>
+        <url>scm:git:https://github.com/kuljaninemir/spring-boot-ftp-client.git</url>
+        <connection>scm:git:https://github.com/kuljaninemir/spring-boot-ftp-client.git</connection>
+        <developerConnection>scm:git:https://github.com/kuljaninemir/spring-boot-ftp-client.git</developerConnection>
+        <tag>HEAD</tag>
+  </scm>
+
+    <developers>
+        <developer>
+            <email>kuljaninemir@gmail.com</email>
+            <name>Emir Kuljanin</name>
+            <url>https://github.com/kuljaninemir</url>
+            <id>kuljaninemir</id>
+        </developer>
+    </developers>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <java.version>1.8</java.version>
+        <hibernate-validator.version>6.0.7.Final</hibernate-validator.version>
+        <commons-net.version>3.6</commons-net.version>
+        <mockftpserver.version>2.7</mockftpserver.version>
         <spring-boot-maven-plugin.version>1.5.10.RELEASE</spring-boot-maven-plugin.version>
-	</properties>
+    </properties>
 
-	<dependencies>
-
+    <dependencies>
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
             <version>1.7.25</version>
         </dependency>
-
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
             <version>1.7.25</version>
         </dependency>
-
-		<dependency>
-			<groupId>org.hibernate.validator</groupId>
-			<artifactId>hibernate-validator</artifactId>
-			<version>${hibernate-validator.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>commons-net</groupId>
-			<artifactId>commons-net</artifactId>
-			<version>${commons-net.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.mockftpserver</groupId>
-			<artifactId>MockFtpServer</artifactId>
-			<version>${mockftpserver.version}</version>
-			<scope>test</scope>
-		</dependency>
+        <dependency>
+            <groupId>org.hibernate.validator</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>${hibernate-validator.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-net</groupId>
+            <artifactId>commons-net</artifactId>
+            <version>${commons-net.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mockftpserver</groupId>
+            <artifactId>MockFtpServer</artifactId>
+            <version>${mockftpserver.version}</version>
+            <scope>test</scope>
+        </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
@@ -71,33 +103,27 @@
         </dependency>
     </dependencies>
 
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-                <version>${spring-boot-maven-plugin.version}</version>
-			</plugin>
-			<plugin>
-				<groupId>org.jacoco</groupId>
-				<artifactId>jacoco-maven-plugin</artifactId>
-				<version>0.7.9</version>
-				<executions>
-					<execution>
-						<goals>
-							<goal>prepare-agent</goal>
-						</goals>
-					</execution>
-					<execution>
-						<id>report</id>
-						<phase>test</phase>
-						<goals>
-							<goal>report</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-		</plugins>
-	</build>
-
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.7.9</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>report</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 </project>
