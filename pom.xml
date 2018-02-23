@@ -34,8 +34,8 @@
 
     <scm>
         <url>https://github.com/kuljaninemir/spring-boot-ftp-client</url>
-        <connection>scm:git:https://github.com/kuljaninemir/spring-boot-ftp-client.git</connection>
-        <developerConnection>scm:git:https://github.com/kuljaninemir/spring-boot-ftp-client.git</developerConnection>
+        <connection>scm:git:git://github.com:kuljaninemir/spring-boot-ftp-client.git</connection>
+        <developerConnection>scm:git:git@github.com:kuljaninemir/spring-boot-ftp-client.git</developerConnection>
         <tag>HEAD</tag>
     </scm>
 
