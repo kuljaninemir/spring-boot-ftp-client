@@ -10,9 +10,11 @@ import org.mockftpserver.fake.filesystem.DirectoryEntry;
 import org.mockftpserver.fake.filesystem.FileEntry;
 import org.mockftpserver.fake.filesystem.FileSystem;
 import org.mockftpserver.fake.filesystem.WindowsFakeFileSystem;
+import org.mockito.Mockito;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.*;
 
 public class FTPFileWriterTest {
 
@@ -57,6 +59,15 @@ public class FTPFileWriterTest {
 		assertFalse(ftpFileWriter.open());
 	}
 
+	@Test
+	public void opensAutomaticallyWhenAutoStartIsTrue(){
+		FTPProperties standardFTPProperties = getStandardFTPProperties();
+		standardFTPProperties.setAutoStart(true);
+        FTPFileWriterImpl ftpFileWriterMock = Mockito.spy(new FTPFileWriterImpl(standardFTPProperties));
+        ftpFileWriterMock.init();
+		verify(ftpFileWriterMock, times(1)).open();
+	}
+
 	public FTPProperties getStandardFTPProperties() {
 		FTPProperties ftpProperties = new FTPProperties();
 		ftpProperties.setAutoStart(false);
@@ -64,6 +75,7 @@ public class FTPFileWriterTest {
 		ftpProperties.setUsername("user");
 		ftpProperties.setPassword("password");
 		ftpProperties.setPort(2101);
+		ftpProperties.setAutoStart(false);
 		return ftpProperties;
 	}
 }
