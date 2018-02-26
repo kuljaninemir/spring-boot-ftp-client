@@ -6,12 +6,10 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.mockftpserver.fake.FakeFtpServer;
 import org.mockftpserver.fake.UserAccount;
-import org.mockftpserver.fake.filesystem.DirectoryEntry;
-import org.mockftpserver.fake.filesystem.FileEntry;
-import org.mockftpserver.fake.filesystem.FileSystem;
-import org.mockftpserver.fake.filesystem.WindowsFakeFileSystem;
+import org.mockftpserver.fake.filesystem.*;
 import org.mockito.Mockito;
 
+import javax.validation.constraints.Null;
 import java.io.ByteArrayOutputStream;
 
 import static org.junit.Assert.*;
@@ -148,8 +146,39 @@ public class FTPFileWriterTest {
 
     @Test(expected = NullPointerException.class)
     public void retrieveFileNotConnectedShouldThrowNullpointer() {
-        boolean success = ftpFileWriter.retrieveFile("doesNotExist.txt", new ByteArrayOutputStream());
+        ftpFileWriter.retrieveFile("doesNotExist.txt", new ByteArrayOutputStream());
+    }
+
+    @Test
+    public void storeFileShouldStoreCorrectly(){
+        ftpFileWriter.open();
+        boolean success = ftpFileWriter.storeFile("testfile.txt", "testfile.txt");
+        FileSystem fileSystem = fakeFtpServer.getFileSystem();
+        FileSystemEntry entry = fileSystem.getEntry("c:\\data\\testfile.txt");
+        assertTrue(success);
+        assertNotNull(entry);
+    }
+
+    @Test
+    public void storeFileShouldReturnFalseIfFileDoesNotExist(){
+        ftpFileWriter.open();
+        boolean success = ftpFileWriter.storeFile("testfileWRONG.txt", "testfile.txt");
         assertFalse(success);
+    }
+
+    @Test
+    public void storeFileDestPathDoesNotExistShouldReturnFalse(){
+        FTPProperties standardFTPProperties = getStandardFTPProperties();
+        standardFTPProperties.setPort(50);
+        ftpFileWriter = new FTPFileWriterImpl(standardFTPProperties);
+        assertFalse(ftpFileWriter.open());
+        boolean success = ftpFileWriter.storeFile("testfile.txt", "\\folder\\testfile.txt");
+        assertFalse(success);
+    }
+
+    @Test (expected = NullPointerException.class)
+    public void storeFileNotConnectedShouldThrowNullpointer(){
+        ftpFileWriter.storeFile("testfile.txt", "\\folder\\testfile.txt");
     }
 
     public FTPProperties getStandardFTPProperties() {
