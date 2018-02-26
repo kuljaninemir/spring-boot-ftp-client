@@ -19,7 +19,8 @@ public interface FTPFileWriter {
 
     /**
      * Retrieve a file from the ftp server.
-     * @param remotePath Remote path for the file to retrieve.
+     *
+     * @param remotePath   Remote path for the file to retrieve.
      * @param outputStream Stream the file is read into.
      * @return boolean True if successful, False otherwise.
      */
@@ -28,8 +29,9 @@ public interface FTPFileWriter {
 
     /**
      * Store a file on the ftp server.
+     *
      * @param inputStream Stream the new file is read from.
-     * @param destPath Remote path the file should be placed at.
+     * @param destPath    Remote path the file should be placed at.
      * @return boolean True if successful, False otherwise.
      */
 
@@ -37,8 +39,9 @@ public interface FTPFileWriter {
 
     /**
      * Store a file on the ftp server.
+     *
      * @param sourcePath Local path the file is read from.
-     * @param destPath Remote path the file should be placed at.
+     * @param destPath   Remote path the file should be placed at.
      * @return boolean True if successful, False otherwise.
      */
 
@@ -46,6 +49,7 @@ public interface FTPFileWriter {
 
     /**
      * Does a NOOP to see if the connection is valid.
+     *
      * @return boolean True if connected, False otherwise.
      */
 

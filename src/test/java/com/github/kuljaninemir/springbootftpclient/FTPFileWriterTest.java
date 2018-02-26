@@ -13,47 +13,45 @@ import org.mockftpserver.fake.filesystem.FileSystem;
 import org.mockftpserver.fake.filesystem.WindowsFakeFileSystem;
 import org.mockito.Mockito;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.*;
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 public class FTPFileWriterTest {
 
-	private static FakeFtpServer fakeFtpServer;
-	private FTPFileWriter ftpFileWriter;
+    private static final String FILE_1_CONTENTS = "abcdef 1234567890";
+    private static FakeFtpServer fakeFtpServer;
+    private FTPFileWriter ftpFileWriter;
 
-	private static final String FILE_1_CONTENTS = "abcdef 1234567890";
+    @BeforeClass
+    public static void setupFakeFTPServer() {
+        fakeFtpServer = new FakeFtpServer();
+        fakeFtpServer.addUserAccount(new UserAccount("user", "password", "c:\\data"));
 
-	@BeforeClass
-	public static void setupFakeFTPServer() {
-		fakeFtpServer = new FakeFtpServer();
-		fakeFtpServer.addUserAccount(new UserAccount("user", "password", "c:\\data"));
+        FileSystem fileSystem = new WindowsFakeFileSystem();
+        fileSystem.add(new DirectoryEntry("c:\\data"));
+        fileSystem.add(new FileEntry("c:\\data\\file1.txt", FILE_1_CONTENTS));
+        fileSystem.add(new FileEntry("c:\\data\\run.exe"));
+        fakeFtpServer.setFileSystem(fileSystem);
+        fakeFtpServer.setServerControlPort(2101);
 
-		FileSystem fileSystem = new WindowsFakeFileSystem();
-		fileSystem.add(new DirectoryEntry("c:\\data"));
-		fileSystem.add(new FileEntry("c:\\data\\file1.txt", FILE_1_CONTENTS));
-		fileSystem.add(new FileEntry("c:\\data\\run.exe"));
-		fakeFtpServer.setFileSystem(fileSystem);
-		fakeFtpServer.setServerControlPort(2101);
+        fakeFtpServer.start();
+    }
 
-		fakeFtpServer.start();
-	}
+    @AfterClass
+    public static void teardownFakeFTPServer() {
+        fakeFtpServer.stop();
+    }
 
-	@AfterClass
-	public static void teardownFakeFTPServer() {
-		fakeFtpServer.stop();
-	}
+    @Before
+    public void setupFtpFileWriter() {
+        ftpFileWriter = new FTPFileWriterImpl(getStandardFTPProperties());
+    }
 
-	@Before
-	public void setupFtpFileWriter() {
-		ftpFileWriter = new FTPFileWriterImpl(getStandardFTPProperties());
-	}
-
-	@Test
-	public void open() {
-		assertTrue(ftpFileWriter.open());
-	}
+    @Test
+    public void open() {
+        assertTrue(ftpFileWriter.open());
+    }
 
     @Test
     public void openWithKeepAliveTimout() {
@@ -63,13 +61,13 @@ public class FTPFileWriterTest {
         assertTrue(ftpFileWriter.open());
     }
 
-	@Test
-	public void openWrongCredentialsShouldReturnFalse() {
-		FTPProperties standardFTPProperties = getStandardFTPProperties();
-		standardFTPProperties.setPassword("wrongpassword");
-		ftpFileWriter = new FTPFileWriterImpl(standardFTPProperties);
-		assertFalse(ftpFileWriter.open());
-	}
+    @Test
+    public void openWrongCredentialsShouldReturnFalse() {
+        FTPProperties standardFTPProperties = getStandardFTPProperties();
+        standardFTPProperties.setPassword("wrongpassword");
+        ftpFileWriter = new FTPFileWriterImpl(standardFTPProperties);
+        assertFalse(ftpFileWriter.open());
+    }
 
     @Test
     public void openWrongPortShouldReturnFalse() {
@@ -79,41 +77,41 @@ public class FTPFileWriterTest {
         assertFalse(ftpFileWriter.open());
     }
 
-	@Test
-	public void opensAutomaticallyWhenAutoStartIsTrue(){
-		FTPProperties standardFTPProperties = getStandardFTPProperties();
-		standardFTPProperties.setAutoStart(true);
+    @Test
+    public void opensAutomaticallyWhenAutoStartIsTrue() {
+        FTPProperties standardFTPProperties = getStandardFTPProperties();
+        standardFTPProperties.setAutoStart(true);
         FTPFileWriterImpl ftpFileWriterMock = Mockito.spy(new FTPFileWriterImpl(standardFTPProperties));
         ftpFileWriterMock.init();
-		verify(ftpFileWriterMock, times(1)).open();
-	}
+        verify(ftpFileWriterMock, times(1)).open();
+    }
 
-	@Test
-    public void close(){
+    @Test
+    public void close() {
         ftpFileWriter.open();
         ftpFileWriter.close();
     }
 
     @Test
-    public void closeWhenNotOpen(){
+    public void closeWhenNotOpen() {
         ftpFileWriter.open();
         ftpFileWriter.close();
         ftpFileWriter.close();
     }
 
     @Test
-    public void isConnectedShouldReturnTrueWhenConnected(){
+    public void isConnectedShouldReturnTrueWhenConnected() {
         ftpFileWriter.open();
         assertTrue(ftpFileWriter.isConnected());
     }
 
     @Test
-    public void isConnectedShouldReturnFalseWhenNotConnected(){
+    public void isConnectedShouldReturnFalseWhenNotConnected() {
         assertFalse(ftpFileWriter.isConnected());
     }
 
     @Test
-    public void isConnectedShouldReturnFalseWhenConnectionIsInvalid(){
+    public void isConnectedShouldReturnFalseWhenConnectionIsInvalid() {
         FTPProperties standardFTPProperties = getStandardFTPProperties();
         standardFTPProperties.setPort(50);
         ftpFileWriter = new FTPFileWriterImpl(standardFTPProperties);
@@ -122,7 +120,7 @@ public class FTPFileWriterTest {
     }
 
     @Test
-    public void retrieveFileContentsShouldMatch(){
+    public void retrieveFileContentsShouldMatch() {
         ftpFileWriter.open();
         ByteOutputStream outputStream = new ByteOutputStream();
         boolean success = ftpFileWriter.retrieveFile("file1.txt", outputStream);
@@ -131,14 +129,14 @@ public class FTPFileWriterTest {
     }
 
     @Test
-    public void retrieveFileDoesNotExistShouldReturnFalse(){
+    public void retrieveFileDoesNotExistShouldReturnFalse() {
         ftpFileWriter.open();
         boolean success = ftpFileWriter.retrieveFile("doesNotExist.txt", new ByteOutputStream());
         assertFalse(success);
     }
 
     @Test
-    public void retrieveFileWrongConnectionShouldReturnFalse(){
+    public void retrieveFileWrongConnectionShouldReturnFalse() {
         FTPProperties standardFTPProperties = getStandardFTPProperties();
         standardFTPProperties.setPort(50);
         ftpFileWriter = new FTPFileWriterImpl(standardFTPProperties);
@@ -148,19 +146,19 @@ public class FTPFileWriterTest {
     }
 
     @Test(expected = NullPointerException.class)
-    public void retrieveFileNotConnectedShouldThrowNullpointer(){
+    public void retrieveFileNotConnectedShouldThrowNullpointer() {
         boolean success = ftpFileWriter.retrieveFile("doesNotExist.txt", new ByteOutputStream());
         assertFalse(success);
     }
 
-	public FTPProperties getStandardFTPProperties() {
-		FTPProperties ftpProperties = new FTPProperties();
-		ftpProperties.setAutoStart(false);
-		ftpProperties.setServer("localhost");
-		ftpProperties.setUsername("user");
-		ftpProperties.setPassword("password");
-		ftpProperties.setPort(2101);
-		ftpProperties.setAutoStart(false);
-		return ftpProperties;
-	}
+    public FTPProperties getStandardFTPProperties() {
+        FTPProperties ftpProperties = new FTPProperties();
+        ftpProperties.setAutoStart(false);
+        ftpProperties.setServer("localhost");
+        ftpProperties.setUsername("user");
+        ftpProperties.setPassword("password");
+        ftpProperties.setPort(2101);
+        ftpProperties.setAutoStart(false);
+        return ftpProperties;
+    }
 }
