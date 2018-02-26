@@ -1,6 +1,5 @@
 package com.github.kuljaninemir.springbootftpclient;
 
-import com.sun.xml.internal.messaging.saaj.util.ByteOutputStream;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -12,6 +11,8 @@ import org.mockftpserver.fake.filesystem.FileEntry;
 import org.mockftpserver.fake.filesystem.FileSystem;
 import org.mockftpserver.fake.filesystem.WindowsFakeFileSystem;
 import org.mockito.Mockito;
+
+import java.io.ByteArrayOutputStream;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.times;
@@ -122,7 +123,7 @@ public class FTPFileWriterTest {
     @Test
     public void retrieveFileContentsShouldMatch() {
         ftpFileWriter.open();
-        ByteOutputStream outputStream = new ByteOutputStream();
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         boolean success = ftpFileWriter.retrieveFile("file1.txt", outputStream);
         assertTrue(success);
         assertEquals(outputStream.toString(), FILE_1_CONTENTS);
@@ -131,7 +132,7 @@ public class FTPFileWriterTest {
     @Test
     public void retrieveFileDoesNotExistShouldReturnFalse() {
         ftpFileWriter.open();
-        boolean success = ftpFileWriter.retrieveFile("doesNotExist.txt", new ByteOutputStream());
+        boolean success = ftpFileWriter.retrieveFile("doesNotExist.txt", new ByteArrayOutputStream());
         assertFalse(success);
     }
 
@@ -141,13 +142,13 @@ public class FTPFileWriterTest {
         standardFTPProperties.setPort(50);
         ftpFileWriter = new FTPFileWriterImpl(standardFTPProperties);
         assertFalse(ftpFileWriter.open());
-        boolean success = ftpFileWriter.retrieveFile("doesNotExist.txt", new ByteOutputStream());
+        boolean success = ftpFileWriter.retrieveFile("doesNotExist.txt", new ByteArrayOutputStream());
         assertFalse(success);
     }
 
     @Test(expected = NullPointerException.class)
     public void retrieveFileNotConnectedShouldThrowNullpointer() {
-        boolean success = ftpFileWriter.retrieveFile("doesNotExist.txt", new ByteOutputStream());
+        boolean success = ftpFileWriter.retrieveFile("doesNotExist.txt", new ByteArrayOutputStream());
         assertFalse(success);
     }
 
