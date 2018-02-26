@@ -51,6 +51,14 @@ public class FTPFileWriterTest {
 		assertTrue(ftpFileWriter.open());
 	}
 
+    @Test
+    public void openWithKeepAliveTimout() {
+        FTPProperties standardFTPProperties = getStandardFTPProperties();
+        standardFTPProperties.setKeepAliveTimeout(5);
+        ftpFileWriter = new FTPFileWriterImpl(standardFTPProperties);
+        assertTrue(ftpFileWriter.open());
+    }
+
 	@Test
 	public void openWrongCredentialsShouldReturnFalse() {
 		FTPProperties standardFTPProperties = getStandardFTPProperties();
@@ -58,6 +66,14 @@ public class FTPFileWriterTest {
 		ftpFileWriter = new FTPFileWriterImpl(standardFTPProperties);
 		assertFalse(ftpFileWriter.open());
 	}
+
+    @Test
+    public void openWrongPortShouldReturnFalse() {
+        FTPProperties standardFTPProperties = getStandardFTPProperties();
+        standardFTPProperties.setPort(50);
+        ftpFileWriter = new FTPFileWriterImpl(standardFTPProperties);
+        assertFalse(ftpFileWriter.open());
+    }
 
 	@Test
 	public void opensAutomaticallyWhenAutoStartIsTrue(){
@@ -67,6 +83,39 @@ public class FTPFileWriterTest {
         ftpFileWriterMock.init();
 		verify(ftpFileWriterMock, times(1)).open();
 	}
+
+	@Test
+    public void close(){
+        ftpFileWriter.open();
+        ftpFileWriter.close();
+    }
+
+    @Test
+    public void closeWhenNotOpen(){
+        ftpFileWriter.open();
+        ftpFileWriter.close();
+        ftpFileWriter.close();
+    }
+
+    @Test
+    public void isConnectedShouldReturnTrueWhenConnected(){
+        ftpFileWriter.open();
+        assertTrue(ftpFileWriter.isConnected());
+    }
+
+    @Test
+    public void isConnectedShouldReturnFalseWhenNotConnected(){
+        assertFalse(ftpFileWriter.isConnected());
+    }
+
+    @Test
+    public void isConnectedShouldReturnFalseWhenConnectionIsInvalid(){
+        FTPProperties standardFTPProperties = getStandardFTPProperties();
+        standardFTPProperties.setPort(50);
+        ftpFileWriter = new FTPFileWriterImpl(standardFTPProperties);
+        assertFalse(ftpFileWriter.open());
+        assertFalse(ftpFileWriter.isConnected());
+    }
 
 	public FTPProperties getStandardFTPProperties() {
 		FTPProperties ftpProperties = new FTPProperties();
