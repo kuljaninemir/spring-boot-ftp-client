@@ -9,7 +9,6 @@ import org.mockftpserver.fake.UserAccount;
 import org.mockftpserver.fake.filesystem.*;
 import org.mockito.Mockito;
 
-import javax.validation.constraints.Null;
 import java.io.ByteArrayOutputStream;
 
 import static org.junit.Assert.*;
@@ -150,7 +149,7 @@ public class FTPFileWriterTest {
     }
 
     @Test
-    public void storeFileShouldStoreCorrectly(){
+    public void storeFileShouldStoreCorrectly() {
         ftpFileWriter.open();
         boolean success = ftpFileWriter.storeFile("testfile.txt", "testfile.txt");
         FileSystem fileSystem = fakeFtpServer.getFileSystem();
@@ -160,14 +159,14 @@ public class FTPFileWriterTest {
     }
 
     @Test
-    public void storeFileShouldReturnFalseIfFileDoesNotExist(){
+    public void storeFileShouldReturnFalseIfFileDoesNotExist() {
         ftpFileWriter.open();
         boolean success = ftpFileWriter.storeFile("testfileWRONG.txt", "testfile.txt");
         assertFalse(success);
     }
 
     @Test
-    public void storeFileDestPathDoesNotExistShouldReturnFalse(){
+    public void storeFileDestPathDoesNotExistShouldReturnFalse() {
         FTPProperties standardFTPProperties = getStandardFTPProperties();
         standardFTPProperties.setPort(50);
         ftpFileWriter = new FTPFileWriterImpl(standardFTPProperties);
@@ -176,8 +175,8 @@ public class FTPFileWriterTest {
         assertFalse(success);
     }
 
-    @Test (expected = NullPointerException.class)
-    public void storeFileNotConnectedShouldThrowNullpointer(){
+    @Test(expected = NullPointerException.class)
+    public void storeFileNotConnectedShouldThrowNullpointer() {
         ftpFileWriter.storeFile("testfile.txt", "\\folder\\testfile.txt");
     }
 
