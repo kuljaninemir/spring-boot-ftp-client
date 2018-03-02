@@ -6,10 +6,14 @@ Spring boot project for using Apache Commons FTPClient through a simplified inte
 
 ## Usage
 
-~~Add the following dependency:~~
+Add the following dependency:
 
 ```
-Under construction
+<dependency>
+  <groupId>com.github.kuljaninemir</groupId>
+  <artifactId>spring-boot-ftp-client</artifactId>
+  <version>1.0.07</version>
+</dependency>
 ```
 
 Add the following to your application.yml:
