@@ -4,7 +4,7 @@
 
     <groupId>com.github.kuljaninemir</groupId>
     <artifactId>spring-boot-ftp-client</artifactId>
-    <version>1.0.08</version>
+    <version>1.0.09</version>
 
     <name>spring-boot-ftp-client</name>
     <description>Demo project for Spring Boot</description>
