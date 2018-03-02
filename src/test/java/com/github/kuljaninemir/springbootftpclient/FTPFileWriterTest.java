@@ -85,6 +85,15 @@ public class FTPFileWriterTest {
     }
 
     @Test
+    public void doesNotOpenAutomaticallyWhenAutoStartIsFalse() {
+        FTPProperties standardFTPProperties = getStandardFTPProperties();
+        standardFTPProperties.setAutoStart(false);
+        FTPFileWriterImpl ftpFileWriterMock = Mockito.spy(new FTPFileWriterImpl(standardFTPProperties));
+        ftpFileWriterMock.init();
+        verify(ftpFileWriterMock, times(0)).open();
+    }
+
+    @Test
     public void close() {
         ftpFileWriter.open();
         ftpFileWriter.close();
