@@ -25,27 +25,29 @@ public interface FTPFileWriter {
      * @return boolean True if successful, False otherwise.
      */
 
-    boolean retrieveFile(String remotePath, OutputStream outputStream);
+    boolean loadFile(String remotePath, OutputStream outputStream);
 
     /**
      * Store a file on the ftp server.
      *
      * @param inputStream Stream the new file is read from.
      * @param destPath    Remote path the file should be placed at.
+     * @param append      Append to an existing file or write as a new file.
      * @return boolean True if successful, False otherwise.
      */
 
-    boolean storeFile(InputStream inputStream, String destPath);
+    boolean saveFile(InputStream inputStream, String destPath, boolean append);
 
     /**
      * Store a file on the ftp server.
      *
      * @param sourcePath Local path the file is read from.
      * @param destPath   Remote path the file should be placed at.
+     * @param append      Append to an existing file or write as a new file.
      * @return boolean True if successful, False otherwise.
      */
 
-    boolean storeFile(String sourcePath, String destPath);
+    boolean saveFile(String sourcePath, String destPath, boolean append);
 
     /**
      * Does a NOOP to see if the connection is valid.

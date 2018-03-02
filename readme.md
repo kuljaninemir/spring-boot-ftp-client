@@ -37,9 +37,9 @@ Connect and start using the FTPFileWriter
 ```
 ftpFileWriter.open();
 if(ftpFileWriter.isConnected()){
-    ftpFileWriter.retrieveFile(path, outputstream);
-    ftpFileWriter.storeFile(inputstream, remotepath);
-    ftpFileWriter.storeFile(sourcepath, destpath);
+    ftpFileWriter.loadFile(path, outputstream);
+    ftpFileWriter.saveFile(inputstream, remotepath, false);
+    ftpFileWriter.saveFile(sourcepath, destpath, true);
 }
 ftpFileWriter.close();
 ```

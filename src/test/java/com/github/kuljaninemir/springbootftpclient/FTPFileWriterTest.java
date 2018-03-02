@@ -127,40 +127,40 @@ public class FTPFileWriterTest {
     }
 
     @Test
-    public void retrieveFileContentsShouldMatch() {
+    public void loadFileContentsShouldMatch() {
         ftpFileWriter.open();
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        boolean success = ftpFileWriter.retrieveFile("file1.txt", outputStream);
+        boolean success = ftpFileWriter.loadFile("file1.txt", outputStream);
         assertTrue(success);
         assertEquals(outputStream.toString(), FILE_1_CONTENTS);
     }
 
     @Test
-    public void retrieveFileDoesNotExistShouldReturnFalse() {
+    public void loadFileDoesNotExistShouldReturnFalse() {
         ftpFileWriter.open();
-        boolean success = ftpFileWriter.retrieveFile("doesNotExist.txt", new ByteArrayOutputStream());
+        boolean success = ftpFileWriter.loadFile("doesNotExist.txt", new ByteArrayOutputStream());
         assertFalse(success);
     }
 
     @Test
-    public void retrieveFileWrongConnectionShouldReturnFalse() {
+    public void loadFileWrongConnectionShouldReturnFalse() {
         FTPProperties standardFTPProperties = getStandardFTPProperties();
         standardFTPProperties.setPort(50);
         ftpFileWriter = new FTPFileWriterImpl(standardFTPProperties);
         assertFalse(ftpFileWriter.open());
-        boolean success = ftpFileWriter.retrieveFile("doesNotExist.txt", new ByteArrayOutputStream());
+        boolean success = ftpFileWriter.loadFile("doesNotExist.txt", new ByteArrayOutputStream());
         assertFalse(success);
     }
 
     @Test(expected = NullPointerException.class)
-    public void retrieveFileNotConnectedShouldThrowNullpointer() {
-        ftpFileWriter.retrieveFile("doesNotExist.txt", new ByteArrayOutputStream());
+    public void loadFileNotConnectedShouldThrowNullpointer() {
+        ftpFileWriter.loadFile("doesNotExist.txt", new ByteArrayOutputStream());
     }
 
     @Test
-    public void storeFileShouldStoreCorrectly() {
+    public void saveFileShouldStoreCorrectly() {
         ftpFileWriter.open();
-        boolean success = ftpFileWriter.storeFile("testfile.txt", "testfile.txt");
+        boolean success = ftpFileWriter.saveFile("testfile.txt", "testfile.txt", false);
         FileSystem fileSystem = fakeFtpServer.getFileSystem();
         FileSystemEntry entry = fileSystem.getEntry("c:\\data\\testfile.txt");
         assertTrue(success);
@@ -168,25 +168,35 @@ public class FTPFileWriterTest {
     }
 
     @Test
-    public void storeFileShouldReturnFalseIfFileDoesNotExist() {
+    public void saveFileShouldReturnFalseIfFileDoesNotExist() {
         ftpFileWriter.open();
-        boolean success = ftpFileWriter.storeFile("testfileWRONG.txt", "testfile.txt");
+        boolean success = ftpFileWriter.saveFile("testfileWRONG.txt", "testfile.txt", false);
         assertFalse(success);
     }
 
     @Test
-    public void storeFileDestPathDoesNotExistShouldReturnFalse() {
+    public void saveFileDestPathDoesNotExistShouldReturnFalse() {
         FTPProperties standardFTPProperties = getStandardFTPProperties();
         standardFTPProperties.setPort(50);
         ftpFileWriter = new FTPFileWriterImpl(standardFTPProperties);
         assertFalse(ftpFileWriter.open());
-        boolean success = ftpFileWriter.storeFile("testfile.txt", "\\folder\\testfile.txt");
+        boolean success = ftpFileWriter.saveFile("testfile.txt", "\\folder\\testfile.txt", false);
         assertFalse(success);
     }
 
     @Test(expected = NullPointerException.class)
-    public void storeFileNotConnectedShouldThrowNullpointer() {
-        ftpFileWriter.storeFile("testfile.txt", "\\folder\\testfile.txt");
+    public void saveFileNotConnectedShouldThrowNullpointer() {
+        ftpFileWriter.saveFile("testfile.txt", "\\folder\\testfile.txt", false);
+    }
+
+    @Test
+    public void saveFileShouldAppendCorrectly() {
+        ftpFileWriter.open();
+        ftpFileWriter.saveFile("testfile.txt", "testfile.txt", false);
+        ftpFileWriter.saveFile("testfile.txt", "testfile.txt", true);
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        ftpFileWriter.loadFile("testfile.txt", outputStream);
+        assertTrue(outputStream.toString().equals(FILE_1_CONTENTS+FILE_1_CONTENTS));
     }
 
     public FTPProperties getStandardFTPProperties() {

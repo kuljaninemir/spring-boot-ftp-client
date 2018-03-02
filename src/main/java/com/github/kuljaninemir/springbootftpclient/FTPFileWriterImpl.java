@@ -59,7 +59,7 @@ public class FTPFileWriterImpl implements FTPFileWriter {
         }
     }
 
-    public boolean retrieveFile(String remotePath, OutputStream outputStream) {
+    public boolean loadFile(String remotePath, OutputStream outputStream) {
         try {
             logger.info("Trying to retrieve a file from remote path " + remotePath);
             return ftpClient.retrieveFile(remotePath, outputStream);
@@ -69,17 +69,20 @@ public class FTPFileWriterImpl implements FTPFileWriter {
         }
     }
 
-    public boolean storeFile(InputStream inputStream, String destPath) {
+    public boolean saveFile(InputStream inputStream, String destPath, boolean append) {
         try {
             logger.info("Trying to store a file to destination path " + destPath);
-            return ftpClient.storeFile(destPath, inputStream);
+            if(append)
+                return ftpClient.appendFile(destPath, inputStream);
+            else
+                return ftpClient.storeFile(destPath, inputStream);
         } catch (IOException e) {
             logger.error(e.getMessage(), e);
             return false;
         }
     }
 
-    public boolean storeFile(String sourcePath, String destPath) {
+    public boolean saveFile(String sourcePath, String destPath, boolean append) {
         InputStream inputStream = null;
         try {
             inputStream = new ClassPathResource(sourcePath).getInputStream();
@@ -87,7 +90,7 @@ public class FTPFileWriterImpl implements FTPFileWriter {
             logger.error(e.getMessage(), e);
             return false;
         }
-        return this.storeFile(inputStream, destPath);
+        return this.saveFile(inputStream, destPath, append);
     }
 
     public boolean isConnected() {
