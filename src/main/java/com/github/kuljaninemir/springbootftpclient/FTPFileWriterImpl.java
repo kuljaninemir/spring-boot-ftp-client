@@ -27,14 +27,14 @@ public class FTPFileWriterImpl implements FTPFileWriter {
     @PostConstruct
     public void init() {
         if (this.FTPProperties.isAutoStart()) {
-            logger.info("Autostarting connection to FTP server.");
+            logger.debug("Autostarting connection to FTP server.");
             this.open();
         }
     }
 
     public boolean open() {
         close();
-        logger.info("Connecting and logging in to FTP server.");
+        logger.debug("Connecting and logging in to FTP server.");
         ftpClient = new FTPClient();
         boolean loggedIn = false;
         try {
@@ -61,7 +61,7 @@ public class FTPFileWriterImpl implements FTPFileWriter {
 
     public boolean loadFile(String remotePath, OutputStream outputStream) {
         try {
-            logger.info("Trying to retrieve a file from remote path " + remotePath);
+            logger.debug("Trying to retrieve a file from remote path " + remotePath);
             return ftpClient.retrieveFile(remotePath, outputStream);
         } catch (IOException e) {
             logger.error(e.getMessage(), e);
@@ -71,7 +71,7 @@ public class FTPFileWriterImpl implements FTPFileWriter {
 
     public boolean saveFile(InputStream inputStream, String destPath, boolean append) {
         try {
-            logger.info("Trying to store a file to destination path " + destPath);
+            logger.debug("Trying to store a file to destination path " + destPath);
             if(append)
                 return ftpClient.appendFile(destPath, inputStream);
             else
@@ -102,7 +102,7 @@ public class FTPFileWriterImpl implements FTPFileWriter {
                 logger.error(e.getMessage(), e);
             }
         }
-        logger.info("Checking for connection to FTP server. Is connected: " + connected);
+        logger.debug("Checking for connection to FTP server. Is connected: " + connected);
         return connected;
     }
 }
