@@ -12,7 +12,7 @@ Add the following dependency:
 <dependency>
   <groupId>com.github.kuljaninemir</groupId>
   <artifactId>spring-boot-ftp-client</artifactId>
-  <version>2.0.01</version>
+  <version>2.0.03</version>
 </dependency>
 ```
 
