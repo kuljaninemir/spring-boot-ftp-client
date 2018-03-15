@@ -17,7 +17,7 @@ public class FTPFileWriterImpl implements FTPFileWriter {
 
     private static final Logger logger = LoggerFactory.getLogger(FTPFileWriterImpl.class);
     private FTPProperties FTPProperties;
-    private FTPClient ftpClient;
+    protected FTPClient ftpClient;
 
     @Autowired
     public FTPFileWriterImpl(@Autowired FTPProperties FTPProperties) {
@@ -104,9 +104,5 @@ public class FTPFileWriterImpl implements FTPFileWriter {
         }
         logger.debug("Checking for connection to FTP server. Is connected: " + connected);
         return connected;
-    }
-
-    public FTPClient getFTPClient(){
-        return this.ftpClient;
     }
 }
