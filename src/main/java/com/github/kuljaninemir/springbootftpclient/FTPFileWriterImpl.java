@@ -105,4 +105,8 @@ public class FTPFileWriterImpl implements FTPFileWriter {
         logger.debug("Checking for connection to FTP server. Is connected: " + connected);
         return connected;
     }
+
+    public FTPClient getFTPClient(){
+        return this.ftpClient;
+    }
 }
