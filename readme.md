@@ -62,6 +62,18 @@ ftp:
   autoStart: true
 ```
 
+If you want to access the FTPClient object you can extend FTPFileWriterImpl and make it the primary bean, like this:
+
+```
+@Primary
+@Component
+public class FTPFileWriterImplExt extends FTPFileWriterImpl {
+    public void doSomething(){
+        //this.ftpClient is accessible here.
+    }
+}
+```
+
 ## Built With
 
 * [Maven](https://maven.apache.org/) - Dependency Management
