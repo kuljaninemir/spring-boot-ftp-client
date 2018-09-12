@@ -53,7 +53,7 @@ public class FTPFileWriterImpl implements FTPFileWriter {
             try {
                 ftpClient.logout();
                 ftpClient.disconnect();
-            } catch (IOException e) {
+            } catch (Exception e) {
                 logger.error(e.getMessage(), e);
             }
         }
@@ -98,7 +98,7 @@ public class FTPFileWriterImpl implements FTPFileWriter {
         if (ftpClient != null) {
             try {
                 connected = ftpClient.sendNoOp();
-            } catch (IOException e) {
+            } catch (Exception e) {
                 logger.error(e.getMessage(), e);
             }
         }
